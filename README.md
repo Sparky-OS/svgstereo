@@ -62,7 +62,7 @@ So a marked file is still a valid SVG and draws the same in every browser, edito
 
 ## Implementations
 
-- [stereo-layer](https://github.com/Sparky-OS/stereo-layer) 1.2.0 (GPL-2.0), the shared stereo policy of Sparky Stereo OS: reads the mark for thumbnails, tooltips and previews in Dolphin, and for stereo icon themes through KIconThemes.
+- [stereo-layer](https://github.com/Sparky-OS/stereo-layer) (GPL-2.0), the shared stereo policy of Sparky Stereo OS: reads the mark, in `.svg` and `.svgz` files, for thumbnails, tooltips and previews in Dolphin and the other programs built on it.
 
 ## Licence
 
