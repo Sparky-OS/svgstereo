@@ -3,7 +3,7 @@
 SVG has no way to say that a drawing holds the two views of a stereo pair.
 SVGStereo is one attribute that says it, so a program that understands stereo can show the drawing in 3D, and every other program draws it exactly as before.
 
-Status: proposal, version 0.1, 14 October 2026.
+Status: proposal, version 0.2, 14 October 2026 (0.1 the same day; 0.2 adds animated drawings).
 Editor: Daniel Ramos, for [Sparky Stereo OS](https://github.com/Sparky-OS/sparky-stereo-os).
 Comments and objections are welcome in this repository's issues.
 
@@ -54,6 +54,17 @@ Four values of the full set have no meaning inside one drawing and are not valid
 2. An unknown or invalid value means one picture: the drawing is shown as it is.
 3. An SVG without the mark is a drawing, one picture. Never pair it by its shape or its colours.
 4. A reader that shows the pair splits the `viewBox` by the layout, gives each eye its own view, and shows the drawing unchanged on a 2D screen.
+
+## Animated drawings
+
+An SVG can move: the animation elements of [SVG 1.1 Second Edition](https://www.w3.org/TR/SVG11/animate.html), chapter 19 "Animation" (`animate`, `set`, `animateMotion`, `animateColor`, `animateTransform`), change the drawing over the document's timeline.
+The mark covers every frame of that timeline.
+
+1. Both views share one timeline: the document's. Every frame is the same packed pair, split by the layout exactly as a still drawing is.
+2. The layout does not change while the drawing plays. The `layout` attribute is not animatable, and readers ignore any animation element that targets it.
+3. Nothing crosses the boundary between the views. In `sideBySide` and `topBottom` layouts, every element of one view stays inside that view's half on every frame, so one eye's content never drifts into the other eye. In the interleaved, checkerboard and quincunx layouts, an animation must keep the packing on every frame; authors of animated drawings should prefer `sideBySideLeftFirst`.
+4. Depth that moves is drawn, not declared: an object that comes closer is drawn with a growing horizontal offset between its two views, frame by frame. The mark itself carries no depth.
+5. A reader that cannot play the animation shows the drawing as it is before any animation runs, split by the layout as usual.
 
 ## Why it is safe everywhere else
 
