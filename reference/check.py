@@ -80,3 +80,5 @@ for name, (limits, expected) in cases.items():
     print(f'PASS {name}: 9/9 disparities, zero vertical drift, identical aligned noise and unchanged 2D',flush=True)
 (evidence/'depth-results.json').write_text(json.dumps(results,indent=2)+'\n')
 print('PASS: flat rendering rejects seven nonzero predictions; changed turbulence seed rejects noise identity')
+
+subprocess.run([sys.executable, str(reference / 'check-packing.py'), str(evidence)], check=True)

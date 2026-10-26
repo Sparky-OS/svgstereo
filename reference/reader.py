@@ -219,16 +219,21 @@ def main():
 
 
 def pack_pair(left, right, path):
-    from PIL import Image, PngImagePlugin
+    from PIL import Image
+    import struct
+    import zlib
     if left.size != right.size:
         raise ValueError('PNG sTER requires equal-size views')
     padding = (-left.width) % 8
     pair = Image.new('RGBA', (left.width * 2 + padding, left.height))
     pair.paste(left, (0, 0))
     pair.paste(right, (left.width + padding, 0))
-    info = PngImagePlugin.PngInfo()
-    info.add(b'sTER', b'\x01')
-    pair.save(path, pnginfo=info)
+    pair.save(path)
+    data = Path(path).read_bytes()
+    payload = b'sTER\x01'
+    chunk = struct.pack('>I', 1) + payload + struct.pack('>I', zlib.crc32(payload))
+    # Insert the registered public chunk after IHDR, before the first IDAT.
+    Path(path).write_bytes(data[:33] + chunk + data[33:])
 
 if __name__ == '__main__':
     main()
