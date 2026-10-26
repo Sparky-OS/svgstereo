@@ -40,3 +40,9 @@ The profile requires a zero-origin viewBox and untransformed rectangular groups 
 Depth on arbitrary leaves, transforms, CSS style resolution, live animation, script, external backdrop effects and general painted-boundary detection are outside this reference.
 The normative rules and remaining implementation work are in [DEPTH.md](../DEPTH.md).
 The Dockerfile pins the base digest; package versions are resolved at build time and should be recorded with any measurement.
+# Default binding regression
+
+Run `python3 reference/check-defaults.py OUTPUT` in the same proof container.
+It measures five independent marker disparities at limits 10/4/1 for omitted desktop and element depths, explicit screen in both ranges, and an explicitly sunk background.
+The desktop selector chooses Union's popup default; backgrounds require explicit sunk or screen.
+Expected values come from the binding and Union's `DepthTree::update()`, not reader placement output.

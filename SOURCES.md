@@ -141,6 +141,10 @@ Union's initial [property commit 970436a](https://invent.kde.org/danielcamposram
 The later [depth-range commit 6a695e8](https://invent.kde.org/danielcamposramos/union/-/commit/6a695e8b5130a1a3ccb8645e80e266423cb8d8ed) replaces the fixed shadow step with strength and separate internal limits.
 Its `Depth::shadowStrength` uses `opacity * (length(offset) + blur radius / 2 + max(spread distance, 0))`.
 Its `Reach::fit`, `referenceDepth` and `exactEyeShift` define the fitting, reference-width scaling and eye split used here.
+Its `DepthTree::update()` uses `node.placement.declared.value_or(Depth::Popped)` for desktop roles and `elementStep` for internal elements.
+The accompanying comment names menu, popup, tooltip and dialog roles.
+The proposed SVG desktop selector deliberately selects that popup default; a background must explicitly choose sunk or screen.
+An undeclared shadowless internal element adds zero; explicit screen overrides inference in either range.
 The later [Qt Quick integration commit 7c8ab92](https://invent.kde.org/danielcamposramos/union/-/commit/7c8ab92f0fd3b86d0e662ee740adf5f1ac882152) keeps “the shadow left where it falls”.
 These commit identities were read from the edition's patch headers; the local patch series, including later patches, was inspected for superseding rules.
 The procedure-preserving SVG reference is an implementation of the described rule, not copied Union code or proof of complete Union parity.

@@ -54,8 +54,14 @@ On the desktop these are Stereo KWin's `SunkLimit`, `PoppedLimit` and `ElementLi
 The edition's documented defaults are 10, 4 and 1 respectively.
 12 pixels is a useful measuring scale, not a proposed default.
 
-`svgstereo:depth-range="desktop"` identifies an explicitly authored surface such as a background, menu or popup.
+`svgstereo:depth-range="desktop"` selects a separate surface with Union's popup role default, as used for menus, popups, tooltips and dialogs.
+With no valid declared depth, its relative step is `popped`, even when it has no shadow.
+This selector does not classify a drawing by its name, appearance or SVG element type.
+To use this range for a background, declare `svgstereo:depth="sunk"` for a background behind its parent or `svgstereo:depth="screen"` for one on its parent's plane.
+A plain surface in this range also needs explicit `screen` to override the popup default.
 `svgstereo:depth-range="element"`, the default, identifies an element within a surface.
+With no valid declared depth, this range uses shadow inference and adds zero when no shadow is recognised.
+Explicit `screen` adds zero in either range, before the existing stack fitting and edge rules; it is relative to the parent, not an instruction to reset an entire nested stack.
 This is a proposed SVG selector for Union's existing two ranges, not another depth vocabulary or a file-specified comfort limit.
 An embedding toolkit may supply equivalent surface roles from its own model.
 The attribute does not inherit; a button inside a desktop menu normally uses the element range.
@@ -87,7 +93,8 @@ Convert lengths to a common surface coordinate system before comparing strengths
 An outer shadow has positive strength; an inset shadow has negative strength.
 Normalise against the strongest undeclared shadow on the same side of the same surface, then fit nested levels.
 A declared depth is excluded from that shadow normalisation and always wins.
-No shadow adds no step.
+These shadow inference rules apply to the element range only; no shadow there adds no step.
+The desktop range uses its declared depth or the popup default above, independently of shadows.
 
 `feDropShadow` is an outer shadow.
 An identifiable blur and offset of SourceAlpha composited under SourceGraphic is also an outer shadow.
@@ -95,7 +102,7 @@ An identifiable offset and blurred alpha subtracted from SourceAlpha, coloured, 
 SVG has no `inset` keyword for `feDropShadow`.
 The reference fixture contains that explicit inset graph.
 Do not infer a shadow from arbitrary dark paint, lighting or a displacement filter.
-For an ambiguous filter graph, use its declared depth or no inferred step; do not guess intent from the picture.
+For an ambiguous filter graph in the element range, use its declared depth or no inferred step; do not guess intent from the picture.
 If multiple identifiable shadows compete, this binding uses the greatest absolute strength, with the last in filter order breaking a tie.
 This graph recognition and tie rule are new SVG binding choices, not existing SVG shadow semantics.
 

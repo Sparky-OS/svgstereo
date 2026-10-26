@@ -96,6 +96,9 @@ def placements(root, limits, width):
         if n['declared'] is not None:
             step = n['declared']
         elif n['kind'] == 'desktop':
+            # DEPTH.md binds this range to Union's popup default, not background detection.
+            # Union s1-0009 DepthTree::update(): declared.value_or(Depth::Popped).
+            # Background surfaces must explicitly declare sunk or screen.
             step = 1
         else:
             key = (n['surface']['id'] if n['surface'] else None, n['shadow'] > 0)
