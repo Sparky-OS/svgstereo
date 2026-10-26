@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:svgstereo="https://github.com/Sparky-OS/svgstereo"
+     width="1920" height="900" viewBox="0 0 1920 900" svgstereo:depth="screen">
+ <defs>
+  <filter id="noise" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="0" y="0" width="1920" height="900">
+   <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="270" result="grain"/>
+   <feComposite in="grain" in2="SourceAlpha" operator="in"/>
+  </filter>
+  <filter id="outer" x="-20%" y="-20%" width="140%" height="140%">
+   <feDropShadow dx="0" dy="8" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+  </filter>
+  <filter id="weak" x="-20%" y="-20%" width="140%" height="140%">
+   <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.6"/>
+  </filter>
+  <filter id="inset" x="-20%" y="-20%" width="140%" height="140%">
+   <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+   <feOffset in="blur" dx="0" dy="8" result="offset"/>
+   <feComposite in="SourceAlpha" in2="offset" operator="out" result="cut"/>
+   <feFlood flood-color="#000000" flood-opacity="0.6" result="ink"/>
+   <feComposite in="ink" in2="cut" operator="in" result="shade"/>
+   <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="shade"/></feMerge>
+  </filter>
+  <linearGradient id="paint"><stop stop-color="#476a99"/><stop offset="1" stop-color="#253b60"/></linearGradient>
+  <pattern id="dots" patternUnits="userSpaceOnUse" width="16" height="16"><circle cx="8" cy="8" r="2" fill="#eeeeee"/></pattern>
+  <symbol id="glyph" viewBox="0 0 30 30"><path d="M0 15 L15 0 L30 15 L15 30Z" fill="#eeeeee"/></symbol>
+ </defs>
+ <rect width="1920" height="900" fill="#172334"/>
+ <g id="background" svgstereo:depth="sunk" svgstereo:depth-range="desktop">
+  <rect x="40" y="40" width="1800" height="800" fill="#394858"/>
+  <rect x="40" y="40" width="1800" height="800" filter="url(#noise)"/>
+  <rect x="60" y="60" width="24" height="24" fill="#ffd100"/>
+  <text x="100" y="83" fill="white" font-family="DejaVu Sans" font-size="24">Sunk procedural background</text>
+ </g>
+ <g id="card" filter="url(#outer)">
+  <rect x="120" y="140" width="760" height="270" rx="12" fill="url(#paint)"/>
+  <rect x="150" y="220" width="220" height="140" filter="url(#noise)"/>
+  <rect x="410" y="240" width="180" height="90" fill="url(#dots)"/>
+  <use href="#glyph" x="650" y="250" width="50" height="50"/>
+  <rect x="150" y="165" width="24" height="24" fill="#ff00bb"/>
+  <text x="190" y="187" fill="white" font-family="DejaVu Sans" font-size="24">Card raised by its outer shadow</text>
+ </g>
+ <g id="weak-card" filter="url(#weak)">
+  <rect x="120" y="455" width="760" height="100" fill="#344e70"/>
+  <rect x="150" y="480" width="24" height="24" fill="#00e5ff"/>
+  <text x="190" y="502" fill="white" font-family="DejaVu Sans" font-size="24">Weaker shadow, one third of the step</text>
+ </g>
+ <g id="field" filter="url(#inset)">
+  <rect x="120" y="600" width="760" height="120" fill="#58708e"/>
+  <rect x="150" y="635" width="24" height="24" fill="#aaff00"/>
+  <text x="190" y="657" fill="white" font-family="DejaVu Sans" font-size="24">Field sunk by its inset shadow</text>
+ </g>
+ <g id="menu" svgstereo:depth="popped" svgstereo:depth-range="desktop">
+  <rect x="1030" y="140" width="680" height="580" fill="#25344b"/>
+  <rect x="1060" y="165" width="24" height="24" fill="#ff6400"/>
+  <text x="1100" y="187" fill="white" font-family="DejaVu Sans" font-size="24">Popped menu, share 1 of 3</text>
+  <g id="submenu" svgstereo:depth="100%" svgstereo:depth-range="desktop">
+   <rect x="1070" y="250" width="600" height="400" fill="#344d6d"/>
+   <rect x="1100" y="280" width="24" height="24" fill="#aa00ff"/>
+   <text x="1140" y="302" fill="white" font-family="DejaVu Sans" font-size="24">Nested popped, share 2 of 3</text>
+   <g id="item" svgstereo:depth="1" svgstereo:depth-range="desktop">
+    <rect x="1110" y="370" width="520" height="200" fill="#4a6587"/>
+    <rect x="1140" y="400" width="24" height="24" fill="#00ff88"/>
+    <text x="1180" y="422" fill="white" font-family="DejaVu Sans" font-size="24">Nested popped, share 3 of 3</text>
+   </g>
+  </g>
+ </g>
+ <g id="declared-screen" svgstereo:depth="screen" filter="url(#outer)">
+  <rect x="1030" y="755" width="680" height="70" fill="#465d77"/>
+  <rect x="1060" y="775" width="24" height="24" fill="#ffaaaa"/>
+  <text x="1100" y="799" fill="white" font-family="DejaVu Sans" font-size="22">Declared screen overrides the shadow</text>
+ </g>
+ <g id="edge" svgstereo:depth="popped" svgstereo:depth-range="desktop">
+  <rect x="1840" y="150" width="80" height="620" fill="#586170"/>
+  <rect x="1870" y="180" width="24" height="24" fill="#aaccff"/>
+  <text x="1850" y="240" fill="white" font-family="DejaVu Sans" font-size="16">Edge</text>
+ </g>
+</svg>

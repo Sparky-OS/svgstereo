@@ -1,6 +1,6 @@
 # SVGStereo: side by side SVG, with deep colour SDR and HDR
 
-SVGStereo marks a drawing that holds a stereo pair and describes its intended colour rendering.
+SVGStereo marks an authored stereo pair or a single-view procedural drawing with depth, and describes its intended colour rendering.
 The stereo mark means two complete views side by side, left eye first, each at any resolution.
 The optional colour marks cover deep colour SDR and HDR, independently of stereo.
 They reuse PNG's colour fields and ITU-T H.273 code points.
@@ -15,10 +15,11 @@ Comments and objections are welcome in this repository's issues.
 
 The namespace is `https://github.com/Sparky-OS/svgstereo`.
 The prefix `svgstereo` is a convention; readers match the namespace URI and local attribute name.
-All attributes below belong on the document's root `svg` element in the SVG namespace.
+The five attributes below belong on the document's root `svg` element in the SVG namespace.
 They have no meaning on descendants or in another namespace.
 For `.svgz`, read the decompressed document.
-All five attributes are optional and are not animatable.
+These five attributes are optional and are not animatable.
+The separate [procedural depth attributes](DEPTH.md) may also occur on graphics elements and groups; depth can animate.
 
 | Attribute | Meaning |
 |---|---|
@@ -36,7 +37,9 @@ The [source clauses](SOURCES.md) distinguish those additions from the existing s
 ## Side by side only
 
 The only stereo value is `sideBySideLeftFirst`.
-Absence of `layout`, or any other value, means one picture shown as authored.
+Without `layout`, the drawing is one picture unless its root explicitly opts into the [procedural depth path](DEPTH.md).
+Any other layout value means one picture shown as authored.
+The authored side by side path remains available alongside procedural doubling.
 A reader never guesses a pair from the drawing's shape, proportions or colours.
 There is no separate mono value and no alternate eye order value in version 0.3.
 
@@ -73,6 +76,14 @@ Do not change the file or its extended attributes automatically.
 Offer to save the correction to the file only as an explicit user action.
 Saving must exchange the authored views while retaining the left-first mark, then clear the stored correction so it is not applied twice.
 A display's own eye swap remains an output setting.
+
+## Procedural depth
+
+A single-view drawing can opt in with `svgstereo:depth="screen"` on its root.
+The reader draws its procedures once per eye, using Union's `sunk | screen | popped | <percentage> | <number>` vocabulary, the user's limits and one shared animation state.
+[Procedural depth](DEPTH.md) defines the coordinates, shadow rules, nesting, exceptions and fallback.
+The output remains full side by side, left eye first, at any resolution per view.
+The authored pair is never doubled again.
 
 ## Deep colour SDR and HDR
 
@@ -273,6 +284,7 @@ Version 0.2, dated 14 October 2026, remains in [repository history](https://gith
 Version 0.3 keeps only `sideBySideLeftFirst`, with complete views at any resolution.
 It adds independent colour and precision marks for deep colour SDR and HDR, plus optional mastering and content light levels.
 It retains and adapts the animation rules and makes per-file eye correction a reader action.
+It adds procedural doubling with Union's three depth levels, graded shadows and a bounded reference reader.
 Older layout values are not version 0.3 values; a reader claiming older-version support may still handle them under that older specification.
 The namespace stays the same and carries no version discriminator, so old readers can retain their older layout behaviour.
 The existing left-first value keeps its meaning.
