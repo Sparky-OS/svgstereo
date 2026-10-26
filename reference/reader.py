@@ -212,14 +212,23 @@ def main():
         records = [{k: n[k] for k in ('id','box','raw','fit','disparity','edge')} for n in nodes]
     (args.output / 'placement.json').write_text(json.dumps(records, indent=2) + '\n')
     # Raster packing occurs only after the two independent procedural render passes.
-    from PIL import Image, PngImagePlugin
+    from PIL import Image
     left = Image.open(args.output / 'left.png').convert('RGBA')
     right = Image.open(args.output / 'right.png').convert('RGBA')
-    pair = Image.new('RGBA', (left.width * 2, left.height))
-    pair.paste(left, (0, 0)); pair.paste(right, (left.width, 0))
+    pack_pair(left, right, args.output / 'pair.png')
+
+
+def pack_pair(left, right, path):
+    from PIL import Image, PngImagePlugin
+    if left.size != right.size:
+        raise ValueError('PNG sTER requires equal-size views')
+    padding = (-left.width) % 8
+    pair = Image.new('RGBA', (left.width * 2 + padding, left.height))
+    pair.paste(left, (0, 0))
+    pair.paste(right, (left.width + padding, 0))
     info = PngImagePlugin.PngInfo()
     info.add(b'sTER', b'\x01')
-    pair.save(args.output / 'pair.png', pnginfo=info)
+    pair.save(path, pnginfo=info)
 
 if __name__ == '__main__':
     main()

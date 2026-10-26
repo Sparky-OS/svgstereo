@@ -32,6 +32,8 @@ The changed-seed control must fail the noise-identity check, and flat rendering 
 
 The output includes each eye's SVG and PNG, an ordinary 2D render, a `pair.png` with PNG `sTER` mode 1, placement data and numerical results.
 The eye SVGs still contain the turbulence, patterns, gradients, symbol instances and filter primitives.
+PNG adds the format-required padding before the right view when its width is not divisible by eight.
+The pixels of each view are unchanged.
 No running desktop or physical display is used.
 
 The profile requires a zero-origin viewBox and untransformed rectangular groups for its depth surfaces.
