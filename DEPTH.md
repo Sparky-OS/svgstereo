@@ -180,4 +180,4 @@ It supports the fixture's ordinary gradient, pattern, `use` and turbulence throu
 It rejects authored transforms, script, CSS stylesheets and live animation rather than claiming to evaluate them.
 Its simple rectangular edge check does not establish the general painted-extent edge rule.
 The specification's lighting, displacement, arbitrary transform, backdrop, dynamic-state and colour paths need additional implementation proof.
-The measurements in the lane evidence are scoped to this fixture and reader.
+The measurements made by `reference/check.py` are scoped to this fixture and reader.
