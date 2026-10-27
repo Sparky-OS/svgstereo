@@ -69,6 +69,8 @@ The presentation layer receives the views and their intended display geometry; i
 A transport that requires equal storage rectangles needs a common rasterisation size or padding and explicit crop information, not an undeclared resize.
 SVGStereo itself declares neither a pixel count nor a display's packing.
 Its left-first arrangement corresponds to `StereoMode` 1 in [RFC 9559 §5.1.4.1.28.3](https://www.rfc-editor.org/rfc/rfc9559.html#section-5.1.4.1.28.3).
+Separately, the [IANA Matroska registry](https://www.iana.org/assignments/matroska) assigned StereoMode 15 through 20 for packed picture-and-depth raster layouts on 26 October 2026, after Track Plane Types 3 through 5 for separate depth tracks on 20 October.
+Those container registrations reference [stereo-layer v1.9.0](https://github.com/Sparky-OS/stereo-layer/blob/v1.9.0/docs/depth-marks.md); they neither register an SVG attribute nor change this proposal's single side-by-side layout.
 
 A reader may offer a per-file eye swap as a correction for the person viewing a pair.
 Keep that choice in the reader's own per-file state, beside the resume position where applicable.
