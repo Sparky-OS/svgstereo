@@ -1,11 +1,11 @@
-# Procedural depth in SVGStereo 0.3
+# Procedural depth in SVGStereo 0.4
 
 This is the single-view path of the proposal, alongside an authored side by side pair.
 A stereo reader draws the same procedures twice, one view per eye, with a horizontal translation for each element's depth.
 There are no cameras, perspective projections or added scale cues.
 The reader must not rasterise the drawing once and shift pieces of that bitmap to manufacture the other eye.
 Normal raster intermediates used inside a filter are allowed independently in each eye.
-Deep colour SDR and HDR retain the colour rules in [README.md](README.md).
+Colour follows CSS in each view, as [README.md](README.md#colour) describes.
 The [source clauses](SOURCES.md#procedural-depth-clauses) quote the coordinate, filter and Union rules used here.
 
 ## Choosing the path

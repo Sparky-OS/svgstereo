@@ -3,7 +3,7 @@
 This bounded reader demonstrates SVGStereo's procedural depth path.
 It uses librsvg for a separate rendering pass per eye and Pillow only for checking and packing the rendered views.
 The reader does not flatten the SVG first.
-It does not implement deep colour SDR and HDR conversion.
+It does not convert colour; librsvg renders each view, and librsvg 2.63.2 draws CSS Color 4 functions such as `color()` and `oklch()` as black (measured on 2 November 2026).
 
 From the repository root, build the image and run the checks with a writable output directory:
 
