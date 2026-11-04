@@ -181,3 +181,16 @@ It rejects authored transforms, script, CSS stylesheets and live animation rathe
 Its simple rectangular edge check does not establish the general painted-extent edge rule.
 The specification's lighting, displacement, arbitrary transform, backdrop, dynamic-state and colour paths need additional implementation proof.
 The measurements made by `reference/check.py` are scoped to this fixture and reader.
+
+## Related work
+
+Depth for web content was proposed at W3C before, and this part continues that line for drawings.
+- 1994: Dave Raggett's [proposal for platform independent virtual reality on the Web](https://www.w3.org/People/Raggett/vrml/vrml.html), presented at the first WWW conference, which named VRML.
+- 2011: the [Declarative 3D for the Web Architecture Community Group](https://www.w3.org/community/declarative3d/), built on the X3DOM and XML3D prototypes.
+- 2012: the Stereoscopic 3D Web Task Force of the Web and TV Interest Group, whose editor's draft proposed CSS properties for "a web-based (HTML and CSS) user interface that is rendered in stereoscopic 3D on a 3D display", a 3d-display media type and graceful degradation to 2D.
+- 2013: the Stereoscopic 3D Web Community Group, with the Universitat Autònoma de Barcelona's studies of how people perceive stereoscopic web pages.
+- PM-KR's report [Stereo 3D on Linux and the Web](https://www.w3.org/publications/spec-generator/?type=respec&url=https://raw.githubusercontent.com/w3c-cg/pm-kr/main/reports/source/stereo-3d-adoption-report.html) records the 2012 and 2013 work with its sources, under "Twice at W3C".
+- 2026: [CSS Spatial Layout](https://webkit.github.io/explainers/css-spatial/Overview.html) (Ada Rose Cannon and fantasai, Apple, unofficial draft of 27 October 2026) places a page's CSS boxes in front of and behind the page.
+  It says that 'z-index' "is unrelated to spatial positioning", as depth here is unrelated to paint order.
+  Its user agent chooses "a comfortable front limit", as the reader and user own the limits here.
+  It does not cover stereo images or SVG drawings, which this document and the layout mark do.
